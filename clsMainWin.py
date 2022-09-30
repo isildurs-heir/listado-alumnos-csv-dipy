@@ -11,7 +11,7 @@ import shutil
 class clsMainWIn(QtWidgets.QMainWindow):
     def __init__(self,filename, parent=None): #FILENAME
         super(clsMainWIn, self).__init__(parent)
-        uic.loadUi('tp3/alumnos-dipy/main-table.ui',self)
+        uic.loadUi('tp3/alumnos-dipy/ui-files/main-table.ui',self)
         self.fileName = filename
         self.auxFIle = 'temporary.csv' #=???
         self.setupUiComponents()
@@ -58,7 +58,7 @@ class clsMainWIn(QtWidgets.QMainWindow):
 def main():
     app = QApplication(sys.argv)
     
-    filename = 'tp3/alumnos-dipy/listado.csv'
+    filename = 'tp3/alumnos-dipy/csv-files/listado.csv'
     
     objeto = clsMainWIn(filename)
     objeto.show()
