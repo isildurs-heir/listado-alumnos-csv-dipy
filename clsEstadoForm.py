@@ -7,41 +7,34 @@ from tempfile import NamedTemporaryFile
 
 
 class clsEstadoForm(QtWidgets.QMainWindow):
-    def __init__(self, csvEstadoPath,  row,parent=None):  # aqui
+    updateCsv = QtCore.pyqtSignal()
+    def __init__(self, csvEstado,  row, parent=None):  # aqui
         super(clsEstadoForm, self).__init__()
         uic.loadUi('ui-files/estado-form.ui', self)
-        self.csvEstadoPath = csvEstadoPath
-        self.auxFIle = 'temporary-estado.csv'
+        self.csvEstado = csvEstado
+        self.auxFile = 'temporary-estado.csv'
         self.row = row
-        
-        
-        
+
         self.setupUiComponents()
 
     def setupUiComponents(self):
+        self.btnGuardar.clicked.connect(self.guardar)
         self.btnCerrar.clicked.connect(self.close)
-
         self.loadTable()
-        
 
-
+    def guardar(self):
+        self.updateCsv.emit()
+        self.close()
+    
     def loadTable(self):
-        myFile = open(self.csvEstadoPath, 'r')
-        try:
-            reader = csv.reader(myFile, delimiter=",")
+        with open(self.csvEstado) as f:
+            i = [*csv.DictReader(f)]
             self.datos.setRowCount(1)
-            rowI = 0
-            for row in reader:
-                if  rowI == self.row:
-                    columns = len(row)
-                    self.datos.setColumnCount(columns)
-                    for columnJ in range(columns):
-                        myValue = row[columnJ]
-                        cell = QTableWidgetItem(str(myValue))
-                        self.datos.setItem(0,columnJ,cell)
-                rowI +=1
-        finally:
-            myFile.close()
+            self.datos.setColumnCount(len(i[0]))
+            self.datos.setItem(0, 0, QTableWidgetItem(str(i[self.row]['1p'])))
+            self.datos.setItem(0, 1, QTableWidgetItem(str(i[self.row]['1r'])))
+            self.datos.setItem(0, 2, QTableWidgetItem(str(i[self.row]['2p'])))
+            self.datos.setItem(0, 3, QTableWidgetItem(str(i[self.row]['2r'])))
 
 
 def main():
