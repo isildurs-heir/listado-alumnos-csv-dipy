@@ -1,22 +1,28 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QTableWidgetItem
-import csv
-import sys
 from tempfile import NamedTemporaryFile
-import shutil
 import clsEstadoForm as estadoForm
 from resources import clsController as ctrl
+import csv
+import shutil
+import sys
+import os
+import pathlib
 
-#Hacer dos csv el principal con los datos de la cursada
-# y otro con los datos del alumno
+
+
+
 class clsMainWIn(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(clsMainWIn, self).__init__(parent)
-        uic.loadUi('ui-files/main-table.ui',self)
-        self.csvListado = 'csv-files/listado.csv'
-        self.csvEstado = 'csv-files/estado.csv'
-        self.handy = ctrl.controller(self.csvListado,self.csvEstado)
+        dirpath = pathlib.Path(__file__).parent.resolve()
+        uiPath = os.path.join(dirpath,'resources/ui-files/main-table.ui')
+        self.csvListadoPath = os.path.join(dirpath,'resources/csv-files/listado.csv')
+        self.csvEstadosPath = os.path.join(dirpath,'resources/csv-files/estado.csv')
+        
+        uic.loadUi(uiPath,self)
+        self.handy = ctrl.controller(self.csvListadoPath,self.csvEstadosPath)
         #self.auxFIle = 'temporary-listado.csv' #=???
         
         self.setupUiComponents()
@@ -34,7 +40,7 @@ class clsMainWIn(QtWidgets.QMainWindow):
         if column == 0:
             print("datos de alumno")
         elif column == 2:
-            self.estadoForm = estadoForm.clsEstadoForm(self.csvEstado,row)
+            self.estadoForm = estadoForm.clsEstadoForm(self.csvEstadosPath,row)
             self.estadoForm.show()
             self.estadoForm.alumno.setText("Nombre: "+self.datos.item(row,0).text())
             self.estadoForm.lu.setText("Lu: "+self.datos.item(row,1).text())
@@ -42,7 +48,7 @@ class clsMainWIn(QtWidgets.QMainWindow):
             
     
     def loadTable(self):
-        with open(self.csvListado) as f:
+        with open(self.csvListadoPath) as f:
             listado = [*csv.DictReader(f)]
             self.datos.setRowCount(len(listado))
             self.datos.setColumnCount(len(listado[0]))

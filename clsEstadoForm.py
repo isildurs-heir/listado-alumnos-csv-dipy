@@ -1,16 +1,23 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QApplication, QTableWidgetItem
+from tempfile import NamedTemporaryFile
 import csv
 import shutil
 import sys
-from tempfile import NamedTemporaryFile
+import os 
+import pathlib
+
 
 
 class clsEstadoForm(QtWidgets.QMainWindow):
     updateCsv = QtCore.pyqtSignal()
     def __init__(self, csvEstado,  row, parent=None):  # aqui
         super(clsEstadoForm, self).__init__()
-        uic.loadUi('ui-files/estado-form.ui', self)
+        dirpath = pathlib.Path(__file__).parent.resolve()
+        uiPath = os.path.join(dirpath,'resources/ui-files/estado-form.ui')
+        uic.loadUi(uiPath, self)
+        
+        
         self.csvEstado = csvEstado
         self.auxFile = 'temporary-estado.csv'
         self.row = row
