@@ -7,10 +7,10 @@ from tempfile import NamedTemporaryFile
 
 
 class clsEstadoForm(QtWidgets.QMainWindow):
-    def __init__(self, row, parent=None):  # aqui
+    def __init__(self, csvEstadoPath,  row,parent=None):  # aqui
         super(clsEstadoForm, self).__init__()
         uic.loadUi('ui-files/estado-form.ui', self)
-        self.fileName = 'csv-files/estado.csv'
+        self.csvEstadoPath = csvEstadoPath
         self.auxFIle = 'temporary-estado.csv'
         self.row = row
         
@@ -26,7 +26,7 @@ class clsEstadoForm(QtWidgets.QMainWindow):
 
 
     def loadTable(self):
-        myFile = open(self.fileName, 'r')
+        myFile = open(self.csvEstadoPath, 'r')
         try:
             reader = csv.reader(myFile, delimiter=",")
             self.datos.setRowCount(1)

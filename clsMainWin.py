@@ -12,15 +12,11 @@ import clsEstadoForm as estadoForm
 class clsMainWIn(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(clsMainWIn, self).__init__(parent)
-        list_filename = 'csv-files/listado.csv'
+        uic.loadUi('ui-files/main-table.ui',self)        
         
-        
-        
-        uic.loadUi('ui-files/main-table.ui',self)
-        self.fileName = list_filename
-        self.auxFIle = 'temporary.csv' #=???
-        
-        
+        self.listPath = 'csv-files/listado.csv'
+        self.csvEstadoPath = 'csv-files/estado.csv'
+        self.auxFIle = 'temporary-listado.csv' #=???
         
         self.setupUiComponents()
         
@@ -36,7 +32,7 @@ class clsMainWIn(QtWidgets.QMainWindow):
         if column == 0:
             print("datos de alumno")
         elif column == 2:
-            self.estadoForm = estadoForm.clsEstadoForm(row)
+            self.estadoForm = estadoForm.clsEstadoForm(self.csvEstadoPath,row)
             self.estadoForm.show()
             self.estadoForm.id.setText("Nombre: "+self.datos.item(row,0).text()+" \nLu: "+self.datos.item(row,1).text())
             
@@ -44,7 +40,7 @@ class clsMainWIn(QtWidgets.QMainWindow):
         self.close()
     
     def loadTable(self):
-        myFile = open(self.fileName,'r')
+        myFile = open(self.listPath,'r')
         try:
             reader = csv.reader(myFile,delimiter = ',')
             rowI = 0
@@ -53,7 +49,7 @@ class clsMainWIn(QtWidgets.QMainWindow):
                 columns = len(row)
                 if rowI == 0:
                     self.datos.setColumnCount(columns)
-                    
+                
                 for columnJ in range(columns):
                     myValue = row[columnJ]
                     cell = QTableWidgetItem(str(myValue))
