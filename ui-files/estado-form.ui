@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>543</width>
+    <width>594</width>
     <height>476</height>
    </rect>
   </property>
@@ -17,12 +17,53 @@
    <widget class="QTableWidget" name="datos">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>521</width>
+      <x>20</x>
+      <y>70</y>
+      <width>551</width>
       <height>91</height>
      </rect>
     </property>
+    <property name="showGrid">
+     <bool>true</bool>
+    </property>
+    <attribute name="horizontalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>137</number>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>1er Parcial</string>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>1er Recuperatorio</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>2do Parcial</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>2doRecuperatorio</string>
+     </property>
+    </column>
    </widget>
    <widget class="QTextBrowser" name="comentarios">
     <property name="geometry">
@@ -92,7 +133,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>543</width>
+     <width>594</width>
      <height>27</height>
     </rect>
    </property>

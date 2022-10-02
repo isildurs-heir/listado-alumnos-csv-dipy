@@ -12,11 +12,11 @@ import clsEstadoForm as estadoForm
 class clsMainWIn(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(clsMainWIn, self).__init__(parent)
-        list_filename = 'tp3/alumnos-dipy/csv-files/listado.csv'
+        list_filename = 'csv-files/listado.csv'
         
         
         
-        uic.loadUi('tp3/alumnos-dipy/ui-files/main-table.ui',self)
+        uic.loadUi('ui-files/main-table.ui',self)
         self.fileName = list_filename
         self.auxFIle = 'temporary.csv' #=???
         
@@ -26,9 +26,6 @@ class clsMainWIn(QtWidgets.QMainWindow):
         
 
     def setupUiComponents(self):
-        self.datos.resizeColumnsToContents()
-        self.datos.resizeRowsToContents()
-        
         self.loadTable()
         self.datos.doubleClicked.connect(self.moreData)
         self.btnCerrar.clicked.connect(self.closeMainWindow)
