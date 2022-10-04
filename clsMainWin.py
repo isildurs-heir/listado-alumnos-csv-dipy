@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QTableWidgetItem
 from tempfile import NamedTemporaryFile
 import clsEstadoForm as estadoForm
+import clsEditForm as editForm
 from resources import clsController as ctrl
 import csv
 import shutil
@@ -23,16 +24,17 @@ class clsMainWIn(QtWidgets.QMainWindow):
         
         uic.loadUi(uiPath,self)
         self.handy = ctrl.controller(self.csvListadoPath,self.csvEstadosPath)
-        #self.auxFIle = 'temporary-listado.csv' #=???
         
         self.setupUiComponents()
         
-
     def setupUiComponents(self):
         self.handy.refresh_file()
         self.loadTable()
         self.datos.doubleClicked.connect(self.moreData)
         self.btnCerrar.clicked.connect(self.close)
+        self.btnGuardar.clicked.connect(self.loadTable)
+        self.btnAdd.clicked.connect(self.addData)
+        self.msg.setVisible(False)
         
     def moreData(self,index):
         column = index.column()
@@ -45,8 +47,7 @@ class clsMainWIn(QtWidgets.QMainWindow):
             self.estadoForm.alumno.setText("Nombre: "+self.datos.item(row,0).text())
             self.estadoForm.lu.setText("Lu: "+self.datos.item(row,1).text())
             self.estadoForm.updateCsv.connect(self.loadTable)
-            
-    
+                 
     def loadTable(self):
         with open(self.csvListadoPath) as f:
             listado = [*csv.DictReader(f)]
@@ -65,7 +66,12 @@ class clsMainWIn(QtWidgets.QMainWindow):
                 self.datos.setItem(count,2,cell)
                 count +=1
                 
-            
+    def addData(self):
+        self.editForm = editForm.clsEditForm()
+        self.editForm.show()
+        self.editForm.dataToCsv.connect(self.handy.refresh_file)
+        self.editForm.updateCsv.connect(self.loadTable)
+
         
 def main():
     app = QApplication(sys.argv)

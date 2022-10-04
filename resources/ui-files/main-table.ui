@@ -52,7 +52,7 @@
      <string>Cerrar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="add">
+   <widget class="QPushButton" name="btnAdd">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -104,6 +104,24 @@
      </property>
     </column>
    </widget>
+   <widget class="QLabel" name="msg">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>440</y>
+      <width>351</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Alumno agregado. Tabla Actualizada!</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -111,7 +129,7 @@
      <x>0</x>
      <y>0</y>
      <width>658</width>
-     <height>27</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
