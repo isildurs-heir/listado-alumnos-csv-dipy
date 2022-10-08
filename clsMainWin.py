@@ -12,8 +12,6 @@ import os
 import pathlib
 
 
-
-
 class clsMainWIn(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(clsMainWIn, self).__init__(parent)
